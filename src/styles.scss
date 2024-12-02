@@ -1,0 +1,189 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+$bgc1: #212121;
+$bgc2: #171717;
+$bgc3: #333333;
+$fc1: #ffffff;
+$accent1: #90b561;
+$accent2: #a0c96b;
+
+html,
+body {
+    height: 100%;
+    background-color: $bgc1;
+    color: $fc1;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    padding-top: 50px;
+}
+
+a {
+    color: $fc1;
+    text-decoration: none;
+    transition: color 0.3s;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.full-height {
+    height: 100%;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    //justify-content: space-around;
+    gap: 2vw;
+    background-color: $bgc2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    .logo {
+        height: 50px;
+        margin-left: 2vw;
+    }
+
+    .nav-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+            background: none;
+            border: none;
+            color: $fc1;
+            font-size: 1rem;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s;
+
+            mat-icon {
+                margin-right: 0.5rem;
+                font-size: 1.5rem;
+            }
+
+            &:hover {
+                color: lighten($accent1, 10%);
+            }
+        }
+    }
+}
+
+.hoverEffect:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid $accent2;
+}
+  
+.add-to-cart-button {
+    position: absolute !important;
+    bottom: 10px;
+    right: 10px !important;
+    border: none;
+    background-color: $bgc2;
+    padding: 8px;
+    transition: color 0.3s ease;
+    color: $bgc3;
+    z-index: 999;
+
+    &:hover {
+        mat-icon {
+            color: $accent1;
+            transition: color 0.3s ease;
+        }
+    }
+
+    .card {
+        position: relative;
+    }
+}
+
+.card {
+    background-color: $bgc2;
+    color: $fc1;
+    border: 1px solid $bgc2;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+    
+    .card-header {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+    
+    .card-title {
+        font-size: 1.2rem;
+        color: $accent1;
+    }
+
+    .card-body {
+        font-size: 1rem;
+        .item-price {
+            font-size: 1.25rem;
+            color: $accent1;
+        }
+    }
+
+    .buyButton {
+        color: $fc1;
+    }
+
+    .card-footer {
+        text-align: center;
+        margin-top: 1rem;
+    }
+}
+.btn, .btn:disabled{
+    margin-top: 1rem;
+    border: 1px solid gray;
+    color: gray;
+    background-color: rgba(0,0,0,0);
+    opacity: 1;
+}
+.btn:hover{
+    border: 1px solid $accent1;
+    color: $accent1;
+}
+.btn-borderless, .btn-borderless:hover{
+    border: 0px;
+}
+.text-danger{
+    font-size: 14px;
+    position: absolute;
+}
+.form-group{
+    margin-bottom: 1.5rem;
+}
+.iconTitle{
+    min-width: 6.5rem;
+}
+.mat-button{
+    color: $accent1 !important;
+}
+.form-control:hover{
+    border: 1px solid $accent1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 600px) {
+    .iconTitle {
+        display: none;
+    }
+}
