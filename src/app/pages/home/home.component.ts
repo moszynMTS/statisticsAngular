@@ -2,6 +2,9 @@ import { Component, OnInit, QueryList, ViewChildren, AfterViewInit, ElementRef }
 import { Chart, registerables } from 'chart.js';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ApiCaller } from 'src/app/shared/apiCaller';
+import { ControllerNames } from 'src/app/shared/controlerNames';
 
 @Component({
   selector: 'app-home',
@@ -30,9 +33,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     { title: "Kołowy", type: 'pie', description: 'Wykres kołowy (Pie chart) pokazuje proporcje między kategoriami w postaci wycinków koła.' },
     { title: "Donutowy", type: 'doughnut', description: 'Wykres donutowy (Doughnut chart) jest podobny do wykresu kołowego, ale ma pusty środek, co pozwala na lepsze wizualizowanie danych.' },
   ];
-  
-  constructor(private fb: FormBuilder) {
+  counter: number = 1;
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private apiCaller: ApiCaller) {
     Chart.register(...registerables);
+    // this.apiCaller.setControllerPath(ControllerNames.Diagram);
   }
 
   ngOnInit(): void {
@@ -44,59 +48,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   initializeForms(): void {
-    let counter = 1;
-    this.charts = [
-      { form: this.fb.group({
-          canvas: [`canvas-${counter}`],
-          type: ['bar', Validators.required],
-          name: [`#${counter++} Bar`, Validators.required],
-          title: ["Bar", Validators.required],
-          data: [[12, 19, 3, 5, 2], Validators.required],
-          labels: [['Red', 'Blue', 'Yellow', 'Green', 'Orange'], Validators.required],
-          showedConfig: [false, Validators.required],
-        })
-      },
-      { form: this.fb.group({
-          canvas: [`canvas-${counter}`],
-          type: ['bar', Validators.required],
-          name: [`#${counter++} Bar`, Validators.required],
-          title: ["Bar", Validators.required],
-          data: [[12, 19, 3, 5, 2], Validators.required],
-          labels: [['Red', 'Blue', 'Yellow', 'Green', 'Orange'], Validators.required],
-          showedConfig: [false, Validators.required],
-        })
-      },
-      { form: this.fb.group({
-          canvas: [`canvas-${counter}`],
-          type: ['line', Validators.required],
-          name: [`#${counter++} Line`, Validators.required],
-          title: ["Line", Validators.required],
-          data: [[10, 15, 5, 7, 10], Validators.required],
-          labels: [['January', 'February', 'March', 'April', 'May'], Validators.required],
-          showedConfig: [false, Validators.required],
-        })
-      },
-      { form: this.fb.group({
-          canvas: [`canvas-${counter}`],
-          type: ['pie', Validators.required],
-          name: [`#${counter++} Pie`, Validators.required],
-          title: ["Pie", Validators.required],
-          data: [[12, 19, 3, 5, 2], Validators.required],
-          labels: [['Red', 'Blue', 'Yellow', 'Green', 'Orange'], Validators.required],
-          showedConfig: [false, Validators.required],
-        })
-      },
-      { form: this.fb.group({
-          canvas: [`canvas-${counter}`],
-          type: ['doughnut', Validators.required],
-          name: [`#${counter++} Doughnut`, Validators.required],
-          title: ["Doughnut", Validators.required],
-          data: [[12, 19, 3, 5, 2], Validators.required],
-          labels: [['Red', 'Blue', 'Yellow', 'Green', 'Orange'], Validators.required],
-          showedConfig: [false, Validators.required],
-        })
-      },
-    ];
+    this.charts.push(
+      { form: this.createCanvasForm(`canvas-${this.counter}`, 'bar', '#1 Bar', 'Bar', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) },
+      { form: this.createCanvasForm(`canvas-${this.counter + 1}`, 'line', '#2 Line', 'Line', [10, 15, 5, 7, 10], ['January', 'February', 'March', 'April', 'May']) },
+      { form: this.createCanvasForm(`canvas-${this.counter + 2}`, 'pie', '#3 Pie', 'Pie', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) },
+      { form: this.createCanvasForm(`canvas-${this.counter + 3}`, 'doughnut', '#4 Doughnut', 'Doughnut', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) }
+    );
   }
   
 
@@ -146,11 +103,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if (existingChart) {
         existingChart.destroy();
       }
+      chart.form.value.showedConfig = false;
       let data = this.parseArray(chart.form.value.data);
       let labels = this.parseArray(chart.form.value.labels);
       let title = this.parseArray(chart.form.value.title); //todo based on type
       const type = chart.form.value.type;
-
+      this.snackBar.open('Zaktualizowano wykres', 'Zamknij', {
+        duration: 2000,
+        horizontalPosition: 'center', 
+        verticalPosition: 'bottom'
+      });
       new Chart(canvasElement.nativeElement, {
         type: type,
         data: {
@@ -175,6 +137,46 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
     }
   }
+  deleteCanvas(chart: any): void {
+    const index = this.charts.indexOf(chart);
+    if (index !== -1) {
+      const canvasElement = this.canvases.toArray()[index];
+      if (canvasElement && canvasElement.nativeElement) {
+        const existingChart = Chart.getChart(canvasElement.nativeElement);
+        if (existingChart) {
+          existingChart.destroy();
+        }
+        this.snackBar.open('Usunięto wykres', 'Zamknij', {
+          duration: 5000,
+          horizontalPosition: 'center', 
+          verticalPosition: 'bottom'
+        });
+        this.charts.splice(index, 1);
+        chart.form.reset();
+      }
+    }
+  }
+
+  createCanvasForm(
+    canvas: string,
+    type: string = 'bar',
+    name: string = '#1',
+    title: string = 'Bar',
+    data: number[] = [1, 2],
+    labels: string[] = ['Red', 'Blue']
+  ): FormGroup {
+    this.counter++;
+    return this.fb.group({
+      canvas: [canvas],
+      type: [type, Validators.required],
+      name: [name, Validators.required],
+      title: [title, Validators.required],
+      data: [data, Validators.required],
+      labels: [labels, Validators.required],
+      showedConfig: [false, Validators.required],
+    });
+  };
+
   parseArray(input: any): any[] {
     if (typeof input === 'string') {
       return input.split(',').map((item: string) => item.trim());
@@ -182,7 +184,24 @@ export class HomeComponent implements OnInit, AfterViewInit {
     return Array.isArray(input) ? input : [];
   }
   
-  addNext(){
-    console.log("AddNewItemPlaceholder")
+  addNext(): void {
+    const newForm = this.createCanvasForm(
+      `canvas-${this.counter}`,
+      'bar',
+      '#2 Barr',
+      'Barr',
+      [1,2],
+      ['Red', 'Blue']
+    );
+    this.charts.push({ form: newForm });
+    setTimeout(()=>{
+      this.reloadCanvas({form: newForm}); //fix somehow
+    }, 1000)
+    this.snackBar.open('Dodano nowy wykres (WIP)', 'Zamknij', {
+      duration: 2000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
   }
+  
 }

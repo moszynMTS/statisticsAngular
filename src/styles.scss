@@ -34,14 +34,18 @@ body {
     }
 }
 .addNew{
-    color: $bgc3;
-    margin: auto;
+    min-height: 20rem;;
     cursor: pointer;
-    mat-icon {
-        font-size: 100px;
-        width: 100px;
-        height: 100px;
-      }
+    color: $bgc3;
+    a{
+        margin: auto;
+        mat-icon {
+            color: $bgc3;
+            font-size: 100px;
+            width: 100px;
+            height: 100px;
+          }
+    }
 }
 
 .btm-line{
@@ -155,11 +159,11 @@ a {
         position: relative;
     }
 }
-.saveIcon {
+.saveIcon, .deleteIcon{
     position: absolute !important;
     bottom: 5px;
     cursor: pointer;
-    right: 7px !important;
+    right: 3rem !important;
     border: none;
     background-color: rgba(0,0,0,0);
     padding: 8px;
@@ -175,6 +179,15 @@ a {
     }
     .card {
         position: relative;
+    }
+}
+.deleteIcon{
+    right: 7px !important;
+    &:hover {
+        mat-icon {
+            color: red;
+            transition: color 0.3s ease;
+        }
     }
 }
 
