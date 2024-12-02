@@ -24,7 +24,7 @@ body {
 }
 
 .flexible > * {
-    flex: 1 1 calc(48% - 1%);
+    flex: 0 0 49.5%;
     box-sizing: border-box;
 }
 .description{
@@ -33,8 +33,27 @@ body {
         color:$accent2
     }
 }
+.addNew{
+    color: $bgc3;
+    margin: auto;
+    cursor: pointer;
+    mat-icon {
+        font-size: 100px;
+        width: 100px;
+        height: 100px;
+      }
+}
+
 .btm-line{
     border-bottom: 1px solid $accent2
+}
+.top-line{
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid $accent2
+}
+.chart-settings > * {
+    margin-bottom: 0.5rem;
 }
 a {
     color: $fc1;
@@ -117,6 +136,28 @@ a {
 .openSettings {
     position: absolute !important;
     top: 7px;
+    cursor: pointer;
+    right: 7px !important;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    padding: 8px;
+    transition: color 0.3s ease;
+    color: $bgc3;
+    z-index: 999;
+
+    &:hover {
+        mat-icon {
+            color: $accent1;
+            transition: color 0.3s ease;
+        }
+    }
+    .card {
+        position: relative;
+    }
+}
+.saveIcon {
+    position: absolute !important;
+    bottom: 5px;
     cursor: pointer;
     right: 7px !important;
     border: none;

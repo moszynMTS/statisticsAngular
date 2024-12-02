@@ -1,49 +1,59 @@
 <div class="container mt-4">
   <div class="col-12 card">
-    <p class="card-header">Charts Overview</p>
-    <p class="description">Projekt pod tytułem "Analiza danych samochodów używanych z elementami statystyki oraz wizualizacji danych" z wykorzystaniem frameworku Angular z backendem w technologii .Net. Używamy w projekcie datasetu <a [href]="usedDataSet">Used Car Dataset</a> do przedstawienia możliwości przygotowanego rozwiązania. Elementy przedstawiane na każdym z diagramów są edytowalne.</p>
+    <p class="card-header">Informacje</p>
+    <p class="description">
+      Projekt pod tytułem "Analiza danych samochodów używanych z elementami statystyki oraz wizualizacji danych" z wykorzystaniem frameworku Angular z backendem w technologii .Net. Używamy w projekcie datasetu <a [href]="usedDataSet">Used Car Dataset</a> do przedstawienia możliwości przygotowanego rozwiązania. Elementy przedstawiane na każdym z diagramów są edytowalne.
+    </p>
   </div>
 
-  <!-- <div class="col-12 flexible" *ngFor="let chart of charts">
-    <div class="col-6 card">
-      <form [formGroup]="chart.form">
+  <div class="col-12 flexible">
+    <div class="col-6"  *ngFor="let chart of charts">
+      <form [formGroup]="chart.form" class=card>
         <p class="card-header btm-line">{{chart.form.value.name}}</p>
         <canvas #canvas></canvas>
         <a class="openSettings" [ngClass]="{ 'opened': chart.form.value.showedConfig }" (click)="switchState(chart.form)">
           <mat-icon>settings</mat-icon>
         </a>
+        <div class="col-12 top-line flexible chart-settings" *ngIf="chart.form.value.showedConfig">
+          <div class="col-6">
+            <label for="type">Typ wykresu</label>
+            <select formControlName="type" class="form-control">
+              <option *ngFor="let chart of chartTypes" [value]="chart.type">{{ chart.title }}</option>
+            </select>
+          </div>
+        
+          <div class="col-6">
+            <label for="name">Nazwa diagramu</label>
+            <input formControlName="name" class="form-control"/>
+          </div>
+        
+          <div class="col-6">
+            <label for="title">Tytuł diagramu</label>
+            <input formControlName="title" class="form-control"/>
+          </div>
+        
+          <div class="col-6">
+            <label for="data">Dane</label>
+            <input formControlName="data" class="form-control" />
+          </div>
+        
+          <div class="col-6">
+            <label for="labels">Podpisy danych</label>
+            <input formControlName="labels" class="form-control"/>
+          </div>
+        
+          <a class="saveIcon" (click)="reloadCanvas(chart)">
+            <mat-icon>save</mat-icon>
+          </a>
+        </div>
+        
+        
       </form>
     </div>
-  </div> -->
-
-  <div class="col-12 flexible">
     <div class="col-6 card">
-      <form [formGroup]="barForm">
-        <p class="card-header btm-line">{{this.barForm.value.name}}</p>
-        <canvas #barCanvas></canvas>
-        <a class="openSettings" [ngClass]="{ 'opened': barForm.value.showedConfig}" (click)="switchState(barForm)"><mat-icon>settings</mat-icon></a>
-      </form>
-    </div>
-    <div class="col-6 card">
-      <form [formGroup]="lineForm">
-        <p class="card-header btm-line">{{this.lineForm.value.name}}</p>
-        <canvas #lineCanvas></canvas>
-        <a class="openSettings" [ngClass]="{ 'opened': lineForm.value.showedConfig}" (click)="switchState(lineForm)"><mat-icon>settings</mat-icon></a>
-      </form>
-    </div>
-    <div class="col-6 card">
-      <form [formGroup]="pieForm">
-        <p class="card-header btm-line">{{this.pieForm.value.name}}</p>
-        <canvas #pieCanvas></canvas>
-        <a class="openSettings" [ngClass]="{ 'opened': pieForm.value.showedConfig}" (click)="switchState(pieForm)"><mat-icon>settings</mat-icon></a>
-      </form>
-    </div>
-    <div class="col-6 card">
-      <form [formGroup]="doughnutForm">
-        <p class="card-header btm-line">{{this.doughnutForm.value.name}}</p>
-        <canvas #doughnutCanvas></canvas>
-        <a class="openSettings" [ngClass]="{ 'opened': doughnutForm.value.showedConfig}" (click)="switchState(doughnutForm)"><mat-icon>settings</mat-icon></a>
-      </form>
+      <a class="addNew" (click)="addNext()">
+        <mat-icon>add</mat-icon>
+      </a>
     </div>
   </div>
 </div>
