@@ -16,7 +16,26 @@ body {
     transition: background-color 0.3s, color 0.3s;
     padding-top: 50px;
 }
+.flexible {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1%;
+    justify-content: space-between;
+}
 
+.flexible > * {
+    flex: 1 1 calc(48% - 1%);
+    box-sizing: border-box;
+}
+.description{
+    padding: 0.5rem 1rem;
+    a{
+        color:$accent2
+    }
+}
+.btm-line{
+    border-bottom: 1px solid $accent2
+}
 a {
     color: $fc1;
     text-decoration: none;
@@ -92,12 +111,16 @@ a {
     border: 1px solid $accent2;
 }
   
-.add-to-cart-button {
+.opened{
+    color: $accent2 !important;
+}
+.openSettings {
     position: absolute !important;
-    bottom: 10px;
-    right: 10px !important;
+    top: 7px;
+    cursor: pointer;
+    right: 7px !important;
     border: none;
-    background-color: $bgc2;
+    background-color: rgba(0,0,0,0);
     padding: 8px;
     transition: color 0.3s ease;
     color: $bgc3;
@@ -109,7 +132,6 @@ a {
             transition: color 0.3s ease;
         }
     }
-
     .card {
         position: relative;
     }

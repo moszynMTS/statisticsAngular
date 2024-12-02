@@ -9,8 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'; // Make sure to import HttpClientModule
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TokenInterceptor } from './shared/tokenInterceptor';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ApiCaller } from './shared/apiCaller';
 
