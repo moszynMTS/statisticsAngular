@@ -1,12 +1,12 @@
 <div class="container mt-4">
   <div class="col-12 card">
-    <p class="card-header">Informacje</p>
+    <p class="card-header">{{ 'Header.Title' | translate }}</p>
     <p class="description">
-      Projekt pod tytułem "Analiza danych samochodów używanych z elementami statystyki oraz wizualizacji danych" z wykorzystaniem frameworku Angular z backendem w technologii .Net. Używamy w projekcie datasetu <a [href]="usedDataSet">Used Car Dataset</a> do przedstawienia możliwości przygotowanego rozwiązania. Elementy przedstawiane na każdym z diagramów są edytowalne.
-      <a class="loadDefault" (click)="loadDefault()">Załaduj przykładowe wykresy
+      {{ 'Header.Description1' | translate }} <a [href]="dataSetLink">{{dataSetName}}</a> {{ 'Header.Description2' | translate }}
+      <a class="loadDefault" (click)="loadDefault()">{{ 'Header.Example' | translate }}
       </a>
     </p>
-    <a class="saveIcon pageableLoad" (click)="getDataFromPageable()" title="Załaduj dane">
+    <a class="saveIcon pageableLoad" (click)="getDataFromPageable()" [title]="'Header.Load' | translate">
       <mat-icon>assessment</mat-icon>
     </a>
   </div>
@@ -16,41 +16,41 @@
       <form [formGroup]="chart.form" class=card>
         <p class="card-header btm-line">{{chart.form.value.name}}</p>
         <canvas #canvas></canvas>
-        <a class="openSettings" [ngClass]="{ 'opened': chart.form.value.showedConfig }" (click)="switchState(chart.form)">
+        <a class="openSettings" [ngClass]="{ 'opened': chart.form.value.showedConfig }" (click)="switchState(chart.form)"[title]="'Charts.Edit' | translate">
           <mat-icon>settings</mat-icon>
         </a>
         <div class="col-12 top-line flexible chart-settings" *ngIf="chart.form.value.showedConfig">
           <div class="col-6">
-            <label for="type">Typ wykresu</label>
+            <label for="type">{{ 'Charts.Type' | translate }}</label>
             <select formControlName="type" class="form-control">
-              <option *ngFor="let chart of chartTypes" [value]="chart.type" [title]="chart.description">{{ chart.title }}</option>
+              <option *ngFor="let chart of chartTypes" [value]="chart.type" [title]="'Charts.Descriptions.'+chart.type | translate">{{ 'Charts.Types.'+chart.type | translate }}</option>
             </select>
           </div>
         
           <div class="col-6">
-            <label for="name">Nazwa diagramu</label>
+            <label for="name">{{ 'Charts.Name' | translate }}</label>
             <input formControlName="name" class="form-control"/>
           </div>
         
           <div class="col-6">
-            <label for="title">Tytuł diagramu</label>
+            <label for="title">{{ 'Charts.Title' | translate }}</label>
             <input formControlName="title" class="form-control"/>
           </div>
         
           <div class="col-6">
-            <label for="data">Dane</label>
+            <label for="data">{{ 'Charts.Data' | translate }}</label>
             <input formControlName="data" class="form-control" />
           </div>
         
           <div class="col-6">
-            <label for="labels">Podpisy danych</label>
+            <label for="labels">{{ 'Charts.Labels' | translate }}</label>
             <input formControlName="labels" class="form-control"/>
           </div>
         
-          <a class="saveIcon" (click)="reloadCanvas(chart)">
+          <a class="saveIcon" (click)="reloadCanvas(chart)" [title]="'Charts.Save' | translate">
             <mat-icon>save</mat-icon>
           </a>
-          <a class="saveIcon deleteIcon" (click)="deleteCanvas(chart)">
+          <a class="saveIcon deleteIcon" (click)="deleteCanvas(chart)" [title]="'Charts.Delete' | translate">
             <mat-icon>delete</mat-icon>
           </a>
         </div>
@@ -58,7 +58,7 @@
         
       </form>
     </div>
-    <div class="col-6 card addNew" (click)="addNext()">
+    <div class="col-6 card addNew" (click)="addNext()" [title]="'Charts.Add' | translate">
       <a>
         <mat-icon>add</mat-icon>
       </a>

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiCaller } from 'src/app/shared/apiCaller';
 import { ControllerNames } from 'src/app/shared/controlerNames';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ import { ControllerNames } from 'src/app/shared/controlerNames';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChildren('canvas') canvases!: QueryList<ElementRef<HTMLCanvasElement>>;
-  usedDataSet: string = environment.dataSet;
+  dataSetLink: string = environment.dataSet;
+  dataSetName: string = environment.dataSetName;
   chartColors: string[] = [
     '#E6F4EA',
     '#C8E6C9',
@@ -28,13 +30,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ];
   charts: any[] = [];
   chartTypes: any[] = [
-    { title: "Słupkowy", type: 'bar', description: 'Chart słupkowy (Bar chart) przedstawia dane w postaci prostokątnych słupków o różnej wysokości.' },
-    { title: "Liniowy", type: 'line', description: 'Wykres liniowy (Line chart) pokazuje dane jako serię punktów połączonych liniami, co pozwala na zobaczenie trendów.' },
-    { title: "Kołowy", type: 'pie', description: 'Wykres kołowy (Pie chart) pokazuje proporcje między kategoriami w postaci wycinków koła.' },
-    { title: "Donutowy", type: 'doughnut', description: 'Wykres donutowy (Doughnut chart) jest podobny do wykresu kołowego, ale ma pusty środek, co pozwala na lepsze wizualizowanie danych.' },
+    { type: 'bar'},
+    { type: 'line'},
+    { type: 'pie'},
+    { type: 'doughnut'},
   ];
   counter: number = 1;
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private apiCaller: ApiCaller) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private apiCaller: ApiCaller, private translate: TranslateService) {
     Chart.register(...registerables);
     this.apiCaller.setControllerPath(ControllerNames.Data);
   }
@@ -102,22 +104,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   
   reloadCanvas(chart: any): void {
-    const canvasElement = this.canvases.toArray()[this.charts.indexOf(chart)];
+    const canvasIndex = this.charts.indexOf(chart);
+    const canvasElement = this.canvases.toArray()[canvasIndex];
+    
     if (canvasElement && canvasElement.nativeElement) {
       const existingChart = Chart.getChart(canvasElement.nativeElement);
+      
       if (existingChart) {
         existingChart.destroy();
       }
+      
       chart.form.value.showedConfig = false;
+      
       let data = this.parseArray(chart.form.value.data);
       let labels = this.parseArray(chart.form.value.labels);
-      let title = this.parseArray(chart.form.value.title); //todo based on type
+      let title = this.parseArray(chart.form.value.title); 
       const type = chart.form.value.type;
-      this.snackBar.open('Zaktualizowano wykres', 'Zamknij', {
+  
+      this.snackBar.open(this.translate.instant('Notifications.Update'), this.translate.instant('Notifications.Close'), {
         duration: 2000,
-        horizontalPosition: 'center', 
+        horizontalPosition: 'center',
         verticalPosition: 'bottom'
       });
+  
       new Chart(canvasElement.nativeElement, {
         type: type,
         data: {
@@ -142,6 +151,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
     }
   }
+  
   deleteCanvas(chart: any): void {
     const index = this.charts.indexOf(chart);
     if (index !== -1) {
@@ -151,7 +161,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         if (existingChart) {
           existingChart.destroy();
         }
-        this.snackBar.open('Usunięto wykres', 'Zamknij', {
+        this.snackBar.open(this.translate.instant('Notifications.Delete'), this.translate.instant('Notifications.Close'), {
           duration: 5000,
           horizontalPosition: 'center', 
           verticalPosition: 'bottom'
@@ -203,7 +213,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       [1,2],
       ['Red', 'Blue']
     );
-    this.snackBar.open('Dodano nowy wykres', 'Zamknij', {
+    this.snackBar.open(this.translate.instant('Notifications.Add'), this.translate.instant('Notifications.Close'), {
       duration: 2000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',

@@ -1,0 +1,42 @@
+{
+    "App": {
+        "Title": "Analiza danych samochodów używanych z elementami statystyki oraz wizualizacji danych",
+        "Translate": "Tłumacz stronę"
+    },
+    "Header": {
+        "Title": "Informacje",
+        "Description1": "Projekt pod tytułem 'Analiza danych samochodów używanych z elementami statystyki oraz wizualizacji danych' z wykorzystaniem frameworku Angular z backendem w technologii .Net. Używamy w projekcie datasetu",
+        "Description2": "do przedstawienia możliwości przygotowanego rozwiązania. Elementy przedstawiane na każdym z diagramów są edytowalne.",
+        "Example": "Załaduj przykładowe wykresy",
+        "Load":"Załaduj dane"
+    },
+    "Notifications": {
+        "Close": "Zamknij",
+        "Add": "Dodano nowy wykres",
+        "Delete": "Usunięto wykres",
+        "Update": "Zaktualizowano wykres"
+    },
+    "Charts":{
+        "Type":"Typ wykresu",
+        "Name":"Nazwa diagramu",
+        "Title":"Tytuł diagramu",
+        "Data":"Dane",
+        "Labels":"Podpisy danych",
+        "Add":"Dodaj nowy wykres",
+        "Delete":" Usuń wykres",
+        "Save":"Zapisz wykres",
+        "Edit":"Edytuj wykres",
+        "Types":{
+            "bar":"Słupkowy",
+            "line":"Liniowy",
+            "pie":"Kołowy",
+            "doughnut":"Donutowy"
+        },
+        "Descriptions":{
+            "bar":"Chart słupkowy (Bar chart) przedstawia dane w postaci prostokątnych słupków o różnej wysokości.",
+            "line":"Wykres liniowy (Line chart) pokazuje dane jako serię punktów połączonych liniami, co pozwala na zobaczenie trendów.",
+            "pie":"Wykres kołowy (Pie chart) pokazuje proporcje między kategoriami w postaci wycinków koła.",
+            "doughnut":"Wykres donutowy (Doughnut chart) jest podobny do wykresu kołowego, ale ma pusty środek, co pozwala na lepsze wizualizowanie danych."
+        }
+    }
+}

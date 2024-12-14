@@ -3,6 +3,9 @@
     <img src="assets/logo.png" alt="Logo" class="logo" />
   </span>
   <span>
-    <p style="padding-top: 15px">{{production ? titles[0] : titles[1]}}</p>
+    <p style="padding-top: 15px"> {{ 'App.Title' | translate }} </p>
+    <button class="openSettings translate" (click)="switchLanguage()" [title]="'Header.Translate' | translate">
+      <mat-icon>g_translate</mat-icon>
+    </button>
   </span>
 </div>
