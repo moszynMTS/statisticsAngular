@@ -203,7 +203,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       [1,2],
       ['Red', 'Blue']
     );
-    this.snackBar.open('Dodano nowy wykres (WIP)', 'Zamknij', {
+    this.snackBar.open('Dodano nowy wykres', 'Zamknij', {
       duration: 2000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
