@@ -13,6 +13,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ApiCaller } from './shared/apiCaller';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -31,6 +34,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    OverlayModule,
+    MatSelectModule,
     MatInputModule,
     MatIconModule,
     HttpClientModule,

@@ -1,0 +1,100 @@
+<div class="container fakeCard mt-4 bgColor">
+    <form [formGroup]="form">
+        <p class="card-header btm-line">{{ 'Selectable.Title' | translate }}</p>
+        <div class="row">
+            <div class="col-6">
+                <label for="type">{{ 'Charts.Type' | translate }}</label>
+                <select formControlName="type" class="form-control">
+                    <option *ngFor="let chart of chartTypes" [value]="chart.type"
+                        [title]="'Charts.Descriptions.'+chart.type | translate">{{ 'Charts.Types.'+chart.type | translate }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-6">
+                <label for="name">{{ 'Charts.Name' | translate }}</label>
+                <input formControlName="name" class="form-control" />
+            </div>
+    
+            <div class="col-6">
+                <label for="title">{{ 'Charts.Title' | translate }}</label>
+                <input formControlName="title" class="form-control" />
+            </div>
+        </div>
+        <p class="card-header btm-line" style="margin-top: 2%">{{ 'Selectable.Data' | translate }}</p>
+        <div class="row">
+            <div class="col-6">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>{{ 'Selectable.Brand' | translate }}</mat-label>
+                    <mat-select formControlName="brand" multiple>
+                        <mat-option *ngFor="let x of brand" [value]="x">
+                            {{ x }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>{{ 'Selectable.Model' | translate }}</mat-label>
+                    <mat-select formControlName="model" multiple>
+                        <mat-option *ngFor="let x of currModel" [value]="x">
+                            {{ x }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>{{ 'Selectable.Transmission' | translate }}</mat-label>
+                    <mat-select formControlName="transmission" multiple>
+                        <mat-option *ngFor="let x of transmission" [value]="x">
+                            {{ 'Selectable.Transmissions.'+x | translate }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>{{ 'Selectable.Owner' | translate }}</mat-label>
+                    <mat-select formControlName="owner" multiple>
+                        <mat-option *ngFor="let x of owner" [value]="x">
+                            {{ 'Selectable.OwnerTypes.'+x | translate }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>{{ 'Selectable.FuelType' | translate }}</mat-label>
+                    <mat-select formControlName="fuelType" multiple>
+                        <mat-option *ngFor="let x of fuelType" [value]="x">
+                            {{ 'Selectable.FuelTypes.'+x | translate }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <p class="card-header btm-line" style="margin-top: 2%">{{ 'Selectable.Specification' | translate }}</p>
+        <div class="row">
+            <div class="col-6">
+                <label for="name">{{ 'Selectable.YearFrom' | translate }}</label>
+                <input type="number" formControlName="yearFrom" class="form-control" />
+            </div>
+    
+            <div class="col-6">
+                <label for="title">{{ 'Selectable.YearTo' | translate }}</label>
+                <input type="number" formControlName="yearTo" class="form-control" />
+            </div>
+
+            <div class="col-6">
+                <label for="name">{{ 'Selectable.KmDrivenFrom' | translate }}</label>
+                <input type="number" formControlName="kmDrivenFrom" class="form-control" />
+            </div>
+    
+            <div class="col-6">
+                <label for="title">{{ 'Selectable.KmDrivenTo' | translate }}</label>
+                <input type="number" formControlName="kmDrivenTo" class="form-control" />
+            </div>
+        </div>
+    </form>
+    <button mat-button (click)="onClose()">{{ 'Selectable.Close' | translate }}</button>
+</div>

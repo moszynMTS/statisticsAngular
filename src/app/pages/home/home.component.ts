@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiCaller } from 'src/app/shared/apiCaller';
 import { ControllerNames } from 'src/app/shared/controlerNames';
 import { TranslateService } from '@ngx-translate/core';
+import { SelectableComponent } from '../selectable/selectable.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +38,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     { type: 'doughnut'},
   ];
   counter: number = 1;
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private apiCaller: ApiCaller, private translate: TranslateService) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private apiCaller: ApiCaller, private translate: TranslateService, private dialog: MatDialog,) {
     Chart.register(...registerables);
     this.apiCaller.setControllerPath(ControllerNames.Data);
   }
@@ -224,12 +226,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getDataFromPageable(){
-    this.apiCaller.getList().subscribe((res:any)=>{
-      if(res != null){
-        console.log("RES", res);
-        res.forEach((a:any)=>this.createCanvasForm('x', a.type, a.name, a.title, a.data, a.labels));
+    const dialogRef = this.dialog.open(SelectableComponent, {
+      width: '70vw',
+      height: '80vh',
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if (result) {
+        this.apiCaller.getPageable(result).subscribe((res:any)=>{
+          if(res){
+            res.forEach((x:any)=>this.createCanvasForm('x', x.type, x.name, x.title, x.data, x.labels))
+          }
+        })
       }
-    })
+    });
   }
   
 }

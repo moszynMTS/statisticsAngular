@@ -16,6 +16,13 @@ body {
     transition: background-color 0.3s, color 0.3s;
     padding-top: 50px;
 }
+.mat-dialog-container{
+    background-color: $bgc2;
+    color: $fc1;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
 .flexible {
     display: flex;
     flex-wrap: wrap;
@@ -282,6 +289,50 @@ a {
 .form-control:hover{
     border: 1px solid $accent1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.fakeCard {
+    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+    
+    .card-header {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+    
+    .card-title {
+        font-size: 1.2rem;
+        color: $accent1;
+    }
+
+    .card-body {
+        font-size: 1rem;
+        .item-price {
+            font-size: 1.25rem;
+            color: $accent1;
+        }
+    }
+
+    .buyButton {
+        color: $fc1;
+    }
+
+    .card-footer {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .col-6{
+        margin-bottom: 1%;
+    }
+}
+.mat-form-field-flex{
+    background-color: white !important;
+    border-radius: 5px !important;
+}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: $accent1 !important;
+}
+.mat-primary .mat-pseudo-checkbox-checked{
+    background: $accent1 !important;
 }
 @media (max-width: 600px) {
     .iconTitle {

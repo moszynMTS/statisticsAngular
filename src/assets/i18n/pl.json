@@ -38,5 +38,33 @@
             "pie":"Wykres kołowy (Pie chart) pokazuje proporcje między kategoriami w postaci wycinków koła.",
             "doughnut":"Wykres donutowy (Doughnut chart) jest podobny do wykresu kołowego, ale ma pusty środek, co pozwala na lepsze wizualizowanie danych."
         }
+    },
+    "Selectable":{
+        "Title": "Konfiguracja danych",
+        "Data": "Dane",
+        "Specification": "Specyfikacja",
+        "Brand": "Marka",
+        "FuelType" : "Rodzaj paliwa",
+        "FuelTypes":{
+            "Petrol": "Benzyna",
+            "Diesel": "Diesel",
+            "Hybrid/CNG": "Hybryda/CNG"
+        },
+        "Model" : "Model",
+        "Owner" : "Właściciel",
+        "OwnerTypes":{
+            "first" : "Pierwszy właściciel",
+            "second" : "Drugi Właściciel"
+        },
+        "Transmission" : "Skrzynia biegów",
+        "Transmissions":{
+            "Manual" : "Manualna",
+            "Automatic" : "Automatyczna"
+        },
+        "YearFrom" : "Rocznik od",
+        "YearTo" : "Rocznik do",
+        "KmDrivenFrom" : "Kilometry od",
+        "KmDrivenTo" : "Kilometry do",
+        "Close" : "Zamknij"
     }
 }

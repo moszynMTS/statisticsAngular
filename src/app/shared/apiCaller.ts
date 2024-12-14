@@ -13,32 +13,17 @@ export class ApiCaller {
     public setControllerPath(controllerPath: string) {
         this.typeName = controllerPath;
     }
-    getList(): Observable<any[]> {
-        return this.http.get<any>(this.APIUrl + this.typeName+'/pageable');
+    getListTest(): Observable<any[]> {
+        return this.http.get<any>(this.APIUrl + this.typeName+'/pageabletest');
+    }
+    getSelectable(): Observable<any[]> {
+        return this.http.get<any>(this.APIUrl + this.typeName+'/selectable');
     }
     getItem(itemId: any): Observable<any[]> {
         return this.http.get<any>(this.APIUrl + this.typeName+'/'+itemId);
     }
-    getForSelect(): Observable<any[]> {
-        return this.http.get<any>(this.APIUrl + this.typeName+'/getForSelect');
-    }
-    addItem(item: any){
-        return this.http.post<any>(this.APIUrl + this.typeName, item)
-    }
-    updateItem(item: any, itemId: any){
-        item.Id = itemId;
-        return this.http.put<any>(this.APIUrl + this.typeName, item)
-    }
-    deleteItem(itemId: any) {
-        return this.http.put<any>(`${this.APIUrl}${this.typeName}/delete`, null, {
-            params: {itemId}
-        });
-    }
-    ping(): Observable<any> {
-        return this.http.get<any>(this.APIUrl + this.typeName);
-    }
-    login(login: string, password: string): Observable<any> {
-        return this.http.post<any>(`${this.APIUrl}${this.typeName}/login`, { login, password });
+    getPageable(params: {}): Observable<any[]> {
+        return this.http.get<any>(this.APIUrl + this.typeName+'/pageable', {params: params });
     }
       
 }

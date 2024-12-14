@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent {
   constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang(environment.lang);
+    this.translate.setDefaultLang('pl');
+    this.translate.use(environment.lang);
   }
   title = 'StatisticsAngular';
 }
