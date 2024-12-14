@@ -1,28 +1,29 @@
 {
     "App": {
-        "Title": "Used Cars Data Analysis with Statistical and Data Visualization Elements",
-        "Translate": "Translate website"
+        "Title": "Used Car Data Analysis with Statistical Elements and Data Visualization",
+        "Translate": "Translate the page",
+        "Name": "Statistic date analysis"
     },
     "Header": {
         "Title": "Information",
-        "Description1": "Project titled 'Used Cars Data Analysis with Statistical and Data Visualization Elements' using the Angular framework with a .Net backend. The project utilizes a dataset",
-        "Description2": "to demonstrate the capabilities of the prepared solution. Elements presented on each diagram are editable.",
+        "Description1": "Project titled 'Used Car Data Analysis with Statistical Elements and Data Visualization' using the Angular framework with a .Net backend. The project utilizes a dataset",
+        "Description2": "to showcase the capabilities of the prepared solution. Elements displayed on each diagram are editable.",
         "Example": "Load sample charts",
         "Load": "Load data"
     },
     "Notifications": {
         "Close": "Close",
-        "Add": "A new chart has been added",
-        "Delete": "The chart has been deleted",
-        "Update": "The chart has been updated"
+        "Add": "New chart added",
+        "Delete": "Chart deleted",
+        "Update": "Chart updated"
     },
     "Charts": {
-        "Type": "Chart type",
-        "Name": "Chart name",
-        "Title": "Chart title",
+        "Type": "Chart Type",
+        "Name": "Chart Name",
+        "Title": "Chart Title",
         "Data": "Data",
-        "Labels": "Data labels",
-        "Add": "Add a new chart",
+        "Labels": "Data Labels",
+        "Add": "Add new chart",
         "Delete": "Delete chart",
         "Save": "Save chart",
         "Edit": "Edit chart",
@@ -33,10 +34,38 @@
             "doughnut": "Doughnut"
         },
         "Descriptions": {
-            "bar": "A bar chart represents data as rectangular bars of varying heights.",
-            "line": "A line chart displays data as a series of points connected by lines, allowing trends to be seen.",
-            "pie": "A pie chart shows proportions between categories as slices of a circle.",
-            "doughnut": "A doughnut chart is similar to a pie chart but has a hollow center, making data visualization clearer."
+            "bar": "A bar chart represents data as rectangular bars with varying heights.",
+            "line": "A line chart displays data as a series of points connected by lines, revealing trends.",
+            "pie": "A pie chart shows proportions between categories as segments of a circle.",
+            "doughnut": "A doughnut chart is similar to a pie chart but has a hollow center, providing better data visualization."
         }
+    },
+    "Selectable": {
+        "Title": "Data Configuration",
+        "Data": "Data",
+        "Specification": "Specification",
+        "Brand": "Brand",
+        "FuelType": "Fuel Type",
+        "FuelTypes": {
+            "Petrol": "Petrol",
+            "Diesel": "Diesel",
+            "Hybrid/CNG": "Hybrid/CNG"
+        },
+        "Model": "Model",
+        "Owner": "Owner",
+        "OwnerTypes": {
+            "first": "First Owner",
+            "second": "Second Owner"
+        },
+        "Transmission": "Transmission",
+        "Transmissions": {
+            "Manual": "Manual",
+            "Automatic": "Automatic"
+        },
+        "YearFrom": "Year from",
+        "YearTo": "Year to",
+        "KmDrivenFrom": "Kilometers from",
+        "KmDrivenTo": "Kilometers to",
+        "Close": "Close"
     }
 }

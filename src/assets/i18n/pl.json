@@ -1,7 +1,8 @@
 {
     "App": {
         "Title": "Analiza danych samochodów używanych z elementami statystyki oraz wizualizacji danych",
-        "Translate": "Tłumacz stronę"
+        "Translate": "Tłumacz stronę",
+        "Name": "Analiza danych statystyczynch"
     },
     "Header": {
         "Title": "Informacje",
