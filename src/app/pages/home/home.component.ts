@@ -48,13 +48,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   initializeForms(): void {
-    this.charts.push(
-      { form: this.createCanvasForm(`${this.counter}`, 'bar', `#${this.counter} Bar`, 'Bar', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) },
-      { form: this.createCanvasForm(`${this.counter + 1}`, 'line', `#${this.counter} Line`, 'Line', [10, 15, 5, 7, 10], ['January', 'February', 'March', 'April', 'May']) },
-      { form: this.createCanvasForm(`${this.counter + 2}`, 'pie', `#${this.counter} Pie`, 'Pie', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) },
-      { form: this.createCanvasForm(`${this.counter + 3}`, 'doughnut', `#${this.counter} Doughnut`, 'Doughnut', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) }
-      );
-    this.counter = this.counter+4;
+    this.createCanvasForm(`${this.counter}`, 'bar', `#${this.counter} Bar`, 'Bar', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']);
+    this.createCanvasForm(`${this.counter}`, 'line', `#${this.counter} Line`, 'Line', [10, 15, 5, 7, 10], ['January', 'February', 'March', 'April', 'May']);
+    this.createCanvasForm(`${this.counter}`, 'pie', `#${this.counter} Pie`, 'Pie', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']);
+    this.createCanvasForm(`${this.counter}`, 'doughnut', `#${this.counter} Doughnut`, 'Doughnut', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']);
   }
   
 
@@ -66,20 +63,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   createCharts(): void {
-    // Destroy existing charts to avoid reusing canvas elements
     this.charts.forEach((chart, index) => {
       if (chart.instance) {
-        chart.instance.destroy(); // Destroy the existing chart instance
-        chart.instance = null;   // Reset the instance reference
+        chart.instance.destroy();
+        chart.instance = null;
       }
     });
   
-    // Iterate through each canvas and create a new chart instance
     this.canvases.toArray().forEach((canvasElement, index) => {
       const chart = this.charts[index];
-      const { data, labels, title, type } = chart.form.value; // Extract values from the form
-  
-      // Create a new Chart instance and assign it to the chart object
+      const { data, labels, title, type } = chart.form.value;
+
       const chartInstance = new Chart(canvasElement.nativeElement, {
         type: type,
         data: {
@@ -103,7 +97,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         },
       });
   
-      // Save the new Chart instance in the corresponding chart object
       this.charts[index].instance = chartInstance;
     });
   }
@@ -189,7 +182,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
     this.charts.push({ form: createdCanvas });
     setTimeout(()=>{
-      this.createCharts();; //fix somehow
+      this.createCharts();
     }, 0)
     return createdCanvas;
   };
@@ -218,9 +211,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   loadDefault(){
     this.initializeForms();
-    setTimeout(()=>{
-      this.createCharts();
-    }, 100)
   }
   
 }
