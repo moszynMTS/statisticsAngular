@@ -3,6 +3,8 @@
     <p class="card-header">Informacje</p>
     <p class="description">
       Projekt pod tytułem "Analiza danych samochodów używanych z elementami statystyki oraz wizualizacji danych" z wykorzystaniem frameworku Angular z backendem w technologii .Net. Używamy w projekcie datasetu <a [href]="usedDataSet">Used Car Dataset</a> do przedstawienia możliwości przygotowanego rozwiązania. Elementy przedstawiane na każdym z diagramów są edytowalne.
+      <a class="loadDefault" (click)="loadDefault()">Załaduj przykładowe wykresy
+      </a>
     </p>
   </div>
 
@@ -18,7 +20,7 @@
           <div class="col-6">
             <label for="type">Typ wykresu</label>
             <select formControlName="type" class="form-control">
-              <option *ngFor="let chart of chartTypes" [value]="chart.type">{{ chart.title }}</option>
+              <option *ngFor="let chart of chartTypes" [value]="chart.type" [title]="chart.description">{{ chart.title }}</option>
             </select>
           </div>
         

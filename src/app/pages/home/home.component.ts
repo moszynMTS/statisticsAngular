@@ -36,24 +36,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
   counter: number = 1;
   constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private apiCaller: ApiCaller) {
     Chart.register(...registerables);
-    // this.apiCaller.setControllerPath(ControllerNames.Diagram);
+    this.apiCaller.setControllerPath(ControllerNames.Diagram);
   }
 
   ngOnInit(): void {
-    this.initializeForms();
+
   }
 
   ngAfterViewInit(): void {
-    this.createCharts();
+
   }
 
   initializeForms(): void {
     this.charts.push(
-      { form: this.createCanvasForm(`canvas-${this.counter}`, 'bar', '#1 Bar', 'Bar', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) },
-      { form: this.createCanvasForm(`canvas-${this.counter + 1}`, 'line', '#2 Line', 'Line', [10, 15, 5, 7, 10], ['January', 'February', 'March', 'April', 'May']) },
-      { form: this.createCanvasForm(`canvas-${this.counter + 2}`, 'pie', '#3 Pie', 'Pie', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) },
-      { form: this.createCanvasForm(`canvas-${this.counter + 3}`, 'doughnut', '#4 Doughnut', 'Doughnut', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) }
-    );
+      { form: this.createCanvasForm(`${this.counter}`, 'bar', `#${this.counter} Bar`, 'Bar', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) },
+      { form: this.createCanvasForm(`${this.counter + 1}`, 'line', `#${this.counter} Line`, 'Line', [10, 15, 5, 7, 10], ['January', 'February', 'March', 'April', 'May']) },
+      { form: this.createCanvasForm(`${this.counter + 2}`, 'pie', `#${this.counter} Pie`, 'Pie', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) },
+      { form: this.createCanvasForm(`${this.counter + 3}`, 'doughnut', `#${this.counter} Doughnut`, 'Doughnut', [12, 19, 3, 5, 2], ['Red', 'Blue', 'Yellow', 'Green', 'Orange']) }
+      );
+    this.counter = this.counter+4;
   }
   
 
@@ -65,14 +66,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   createCharts(): void {
+    // Destroy existing charts to avoid reusing canvas elements
+    this.charts.forEach((chart, index) => {
+      if (chart.instance) {
+        chart.instance.destroy(); // Destroy the existing chart instance
+        chart.instance = null;   // Reset the instance reference
+      }
+    });
+  
+    // Iterate through each canvas and create a new chart instance
     this.canvases.toArray().forEach((canvasElement, index) => {
       const chart = this.charts[index];
-      const data = chart.form.value.data;
-      const labels = chart.form.value.labels;
-      const title = chart.form.value.title;
-      const type = chart.form.value.type;
-
-      new Chart(canvasElement.nativeElement, {
+      const { data, labels, title, type } = chart.form.value; // Extract values from the form
+  
+      // Create a new Chart instance and assign it to the chart object
+      const chartInstance = new Chart(canvasElement.nativeElement, {
         type: type,
         data: {
           labels,
@@ -94,8 +102,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
           },
         },
       });
+  
+      // Save the new Chart instance in the corresponding chart object
+      this.charts[index].instance = chartInstance;
     });
   }
+  
   reloadCanvas(chart: any): void {
     const canvasElement = this.canvases.toArray()[this.charts.indexOf(chart)];
     if (canvasElement && canvasElement.nativeElement) {
@@ -160,14 +172,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   createCanvasForm(
     canvas: string,
     type: string = 'bar',
-    name: string = '#1',
+    name: string = `#${this.counter} Bar`,
     title: string = 'Bar',
     data: number[] = [1, 2],
     labels: string[] = ['Red', 'Blue']
   ): FormGroup {
     this.counter++;
-    return this.fb.group({
-      canvas: [canvas],
+    let createdCanvas = this.fb.group({
+      canvas: [this.counter],
       type: [type, Validators.required],
       name: [name, Validators.required],
       title: [title, Validators.required],
@@ -175,6 +187,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
       labels: [labels, Validators.required],
       showedConfig: [false, Validators.required],
     });
+    this.charts.push({ form: createdCanvas });
+    setTimeout(()=>{
+      this.createCharts();; //fix somehow
+    }, 0)
+    return createdCanvas;
   };
 
   parseArray(input: any): any[] {
@@ -188,20 +205,22 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const newForm = this.createCanvasForm(
       `canvas-${this.counter}`,
       'bar',
-      '#2 Barr',
-      'Barr',
+      `#${this.counter} Bar`,
+      'Bar',
       [1,2],
       ['Red', 'Blue']
     );
-    this.charts.push({ form: newForm });
-    setTimeout(()=>{
-      this.reloadCanvas({form: newForm}); //fix somehow
-    }, 1000)
     this.snackBar.open('Dodano nowy wykres (WIP)', 'Zamknij', {
       duration: 2000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+  }
+  loadDefault(){
+    this.initializeForms();
+    setTimeout(()=>{
+      this.createCharts();
+    }, 100)
   }
   
 }

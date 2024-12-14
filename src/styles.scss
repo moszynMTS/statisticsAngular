@@ -159,6 +159,23 @@ a {
         position: relative;
     }
 }
+.loadDefault {
+    cursor: pointer;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    padding: 8px;
+    transition: color 0.3s ease;
+    color: white;
+    z-index: 999;
+
+    &:hover {
+        color: $accent1;
+        transition: color 0.3s ease;
+    }
+    .card {
+        position: relative;
+    }
+}
 .saveIcon, .deleteIcon{
     position: absolute !important;
     bottom: 5px;
