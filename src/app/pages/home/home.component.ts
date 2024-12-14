@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   counter: number = 1;
   constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private apiCaller: ApiCaller) {
     Chart.register(...registerables);
-    this.apiCaller.setControllerPath(ControllerNames.Diagram);
+    this.apiCaller.setControllerPath(ControllerNames.Data);
   }
 
   ngOnInit(): void {
@@ -211,6 +211,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   loadDefault(){
     this.initializeForms();
+  }
+
+  getDataFromPageable(){
+    this.apiCaller.getList().subscribe((res:any)=>{
+      if(res != null){
+        console.log("RES", res);
+        res.forEach((a:any)=>this.createCanvasForm('x', a.type, a.name, a.title, a.data, a.labels));
+      }
+    })
   }
   
 }

@@ -1,3 +1,3 @@
 export enum ControllerNames {
-    Diagram = "Diagram"
+    Data = "Data"
 }
